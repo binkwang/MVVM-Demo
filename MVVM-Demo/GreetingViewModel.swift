@@ -8,15 +8,15 @@
 
 import Foundation
 
-class GreetingViewModel : GreetingViewModelProtocol {
+class GreetingViewModel: GreetingViewModelProtocol {
     let person: Person
     
     var greeting: String? {
         didSet {
-            self.greetingDidChange?(self)
+            self.greetingDidChange?(greeting)
         }
     }
-    var greetingDidChange: ((GreetingViewModelProtocol) -> ())?
+    var greetingDidChange: ((String?) -> ())?
     
     required init(person: Person) {
         self.person = person
@@ -29,7 +29,7 @@ class GreetingViewModel : GreetingViewModelProtocol {
 
 protocol GreetingViewModelProtocol: class { //class关键字,表示协议只能被类遵守,如果有枚举或结构体尝试遵守会报错
     var greeting: String? { get set }
-    var greetingDidChange: ((GreetingViewModelProtocol) -> ())? { get set }
+    var greetingDidChange: ((String?) -> ())? { get set }
 
     init(person: Person)  //定义遵循协议的类型需要实现的指定构造函数
     func showGreeting()
