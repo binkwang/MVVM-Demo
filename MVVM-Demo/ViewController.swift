@@ -24,9 +24,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let model = Person(firstName: "David", lastName: "Blaine")
-        let viewModel = GreetingViewModel(person: model)
-        self.viewModel = viewModel
+        self.viewModel = GreetingViewModel()
+        self.viewModel.fetchData()
         
         self.showGreetingButton.addTarget(self.viewModel, action: #selector(GreetingViewModel.showGreeting), for: .touchUpInside)
     }    

@@ -9,7 +9,7 @@
 import Foundation
 
 class GreetingViewModel: GreetingViewModelProtocol {
-    let person: Person
+    var person: Person?
     
     var greeting: String? {
         didSet {
@@ -18,12 +18,16 @@ class GreetingViewModel: GreetingViewModelProtocol {
     }
     var greetingDidChange: ((String?) -> ())?
     
-    required init(person: Person) {
+    required init() {}
+    
+    func fetchData() {
+        let person = Person(firstName: "David", lastName: "Blaine")
         self.person = person
     }
     
     @objc func showGreeting() {
-        self.greeting = "Hello" + " " + self.person.firstName + " " + self.person.lastName
+        guard let person = self.person else { return }
+        self.greeting = "Hello" + " " + person.firstName + " " + person.lastName
     }
 }
 
@@ -31,7 +35,8 @@ protocol GreetingViewModelProtocol: class { //class关键字,表示协议只能�
     var greeting: String? { get set }
     var greetingDidChange: ((String?) -> ())? { get set }
 
-    init(person: Person)  //定义遵循协议的类型需要实现的指定构造函数
+    init()  //定义遵循协议的类型需要实现的指定构造函数
+    func fetchData()
     func showGreeting()
 }
 
